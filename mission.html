@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission & Vision - My School</title>
+  <style>
+    /* Background gradient */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #b71c1c, #424242, #cfd8dc);
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    /* Navigation styling */
+    nav[aria-label="Primary navigation"],
+    nav {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      user-select: none;
+      text-align: center;
+    }
+
+    nav a {
+      color: #ffcdd2;
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #ff5252;
+      outline: none;
+      text-decoration: underline;
+    }
+
+    /* Banner Image */
+    .banner {
+      width: 150px;
+      height: auto;
+      margin-bottom: 1rem;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .banner:hover,
+    .banner:focus {
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    /* Header */
+    header, h1 {
+      font-size: 2.5rem;
+      margin: 0 0 1rem;
+      color: #fffde7;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      user-select: none;
+      text-align: center;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    /* Mission & Vision Container */
+    .mission-vision-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .mission-vision-container section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+      flex: 1 1 300px;
+      min-width: 280px;
+      color: #f0f0f0;
+      transition: background 0.3s ease;
+      user-select: text;
+      text-align: center;
+    }
+
+    .mission-vision-container section:hover,
+    .mission-vision-container section:focus-within {
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    /* Section Titles */
+    .mission-vision-container h2 {
+      color: #ff8a80;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 3px #b71c1c;
+      user-select: none;
+    }
+
+    /* Paragraphs */
+    .mission-vision-container p {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 1rem 0;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ffcdd2;
+      user-select: none;
+      text-shadow: 0 0 2px #b71c1c;
+    }
+
+    /* Accessibility improvements */
+    a:focus-visible {
+      outline: 3px solid #ff5252;
+      outline-offset: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .mission-vision-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      header, h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav aria-label="Primary navigation">
+    <a href="index.html">Home</a> |
+    <a href="mission.html" aria-current="page">Mission & Vision</a>
+  </nav>
+
+  <!-- Banner -->
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/School_building_icon.svg/600px-School_building_icon.svg.png"
+    alt="School Building Icon"
+    class="banner"
+    role="img"
+    aria-label="School building icon"
+    tabindex="0"
+  />
+
+  <!-- Page Title -->
+  <h1>Our Mission & Vision</h1>
+
+  <!-- Mission and Vision container -->
+  <div class="mission-vision-container">
+    <!-- Mission Section -->
+    <section aria-labelledby="mission-title" tabindex="0">
+      <h2 id="mission-title">Mission</h2>
+      <p>
+        To provide quality education that empowers students to reach their full
+        potential academically, socially, and morally.
+      </p>
+    </section>
+
+    <!-- Vision Section -->
+    <section aria-labelledby="vision-title" tabindex="0">
+      <h2 id="vision-title">Vision</h2>
+      <p>
+        To be a leading institution that nurtures future leaders through
+        innovation, integrity, and service to the community.
+      </p>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My School. All rights reserved.</p>
+  </footer>
+</body>
+</html>

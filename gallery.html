@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery - My School</title>
+  <style>
+    /* Background gradient: red + gray */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 15px 40px;
+      color: #B00000;
+      background: linear-gradient(135deg, #b00000 0%, #5a5a5a 50%, #d3d3d3 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: 600;
+      color: #ffffff;
+      user-select: none;
+    }
+    nav a {
+      color: #e6a7a7;
+      text-decoration: none;
+      margin: 0 12px;
+      transition: color 0.3s ease;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #e0e0e0;
+      outline: none;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e0e0e0;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+
+    .drop-area {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 30px;
+      border: 3px dashed #e85050;
+      border-radius: 12px;
+      text-align: center;
+      color: #f4f4f4;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+      user-select: none;
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(176,0,0,0.6);
+    }
+    .drop-area.dragover {
+      background-color: rgba(255, 255, 255, 0.35);
+      border-color: #e0e0e0;
+      color: #e0e0e0;
+      box-shadow: 0 0 20px 4px #e0e0e0;
+      transform: scale(1.05);
+    }
+    .drop-area:focus {
+      outline: 3px solid #e0e0e0;
+      outline-offset: 3px;
+    }
+
+    .gallery-container {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.6s ease;
+      opacity: 0;
+      animation: fadeInScale 0.6s forwards;
+    }
+    .gallery-item:hover,
+    .gallery-item:focus {
+      transform: scale(1.08);
+      box-shadow: 0 12px 30px rgba(176,0,0,0.45);
+      outline: none;
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+      object-fit: cover;
+      max-height: 180px;
+      transition: transform 0.35s ease;
+    }
+    .gallery-item:hover img,
+    .gallery-item:focus img,
+    .gallery-item:hover video,
+    .gallery-item:focus video {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      padding: 10px 15px;
+      text-align: center;
+      font-size: 1rem;
+      color: #444444;
+      font-weight: 600;
+      background-color: #f5f5f5;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-container {
+        margin: 20px 10px;
+      }
+      .gallery-item img,
+      .gallery-item video {
+        max-height: 140px;
+      }
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 40px auto 20px;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+      border-top: 1px solid #aaa;
+      font-family: Arial, sans-serif;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="mission.html">Mission & Vision</a> |
+    <a href="gallery.html" aria-current="page">Gallery</a> |
+    <a href="faculty.html">Faculty</a> |
+    <a href="enrollment.html">Enrollment Schedule Form</a> |
+    <a href="index.html#contact">Contact</a>
+  </nav>
+
+  <h1>Gallery</h1>
+
+  <section class="gallery-container" aria-label="School Gallery">
+    <div class="drop-area" tabindex="0" role="button" aria-label="Drag and drop images or videos here or click to select files">
+      Drag & drop images or videos here, or click to select files
+      <input type="file" id="fileElem" multiple accept="image/*,video/*" style="display:none" />
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid" aria-live="polite">
+      <!-- Existing gallery items -->
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.1s">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="School Library Interior" />
+        <div class="gallery-caption">School Library</div>
+      </div>
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.2s">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Students in Classroom" />
+        <div class="gallery-caption">Classroom Activities</div>
+      </div>
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.3s">
+        <img src="https://images.unsplash.com/photo-1564518098559-06e30115dfbb?auto=format&fit=crop&w=800&q=80" alt="School Building Exterior" />
+        <div class="gallery-caption">School Building</div>
+      </div>
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.4s">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Students using Computers" />
+        <div class="gallery-caption">Computer Lab</div>
+      </div>
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.5s">
+        <img src="https://images.unsplash.com/photo-1509099836639-18ba2e7e2883?auto=format&fit=crop&w=800&q=80" alt="Outdoor School Event" />
+        <div class="gallery-caption">Outdoor Event</div>
+      </div>
+      <div class="gallery-item" tabindex="0" style="animation-delay: 0.6s">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80" alt="School Sports Activity" />
+        <div class="gallery-caption">Sports Day</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My School. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const dropArea = document.querySelector('.drop-area');
+    const fileInput = document.getElementById('fileElem');
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    dropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('dragover');
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    dropArea.addEventListener('click', () => fileInput.click());
+
+    // Enable keyboard access (Enter/Space) to open file selector
+    dropArea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileInput.click();
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      handleFiles(fileInput.files);
+      fileInput.value = '';
+    });
+
+    function handleFiles(files) {
+      [...files].forEach((file, index) => {
+        const fileType = file.type;
+        const url = URL.createObjectURL(file);
+
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.tabIndex = 0;
+        item.style.animationDelay = (0.7 + index * 0.1) + 's';
+
+        let mediaElement;
+        if (fileType.startsWith('image/')) {
+          mediaElement = document.createElement('img');
+          mediaElement.src = url;
+          mediaElement.alt = file.name || 'Uploaded Image';
+          mediaElement.onload = () => URL.revokeObjectURL(url);
+        } else if (fileType.startsWith('video/')) {
+          mediaElement = document.createElement('video');
+          mediaElement.src = url;
+          mediaElement.controls = true;
+          mediaElement.setAttribute('aria-label', file.name || 'Uploaded video');
+          mediaElement.style.maxHeight = '180px';
+          mediaElement.onloadeddata = () => URL.revokeObjectURL(url);
+        } else {
+          URL.revokeObjectURL(url);
+          return;
+        }
+
+        item.appendChild(mediaElement);
+
+        const caption = document.createElement('div');
+        caption.className = 'gallery-caption';
+
+        // Use prompt, but consider improving UX later
+        const userCaption = prompt(`Enter caption for ${file.name}:`) || 'No caption';
+        caption.textContent = userCaption;
+        item.appendChild(caption);
+
+        galleryGrid.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
